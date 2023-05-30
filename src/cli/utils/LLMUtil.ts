@@ -4,6 +4,9 @@ import {
 } from "openai";
 import { LLMModelDetails, LLMModels } from "@types";
 
+import * as dotenv from "dotenv";
+dotenv.config();
+
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("OPENAI_API_KEY environment variable is missing from .env");
   process.exit(1);
