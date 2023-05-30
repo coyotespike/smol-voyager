@@ -1,5 +1,1 @@
-require("module-alias/register");
-
-import { hello as utilsHello } from "@utils";
-import { hello as agentsHello } from "@agents";
-console.log(utilsHello, agentsHello);
+import { hello as utilsHello } from "@utils"; import { hello as agentsHello } from "@agents"; console.log(utilsHello, agentsHello);
