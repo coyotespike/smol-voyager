@@ -4,7 +4,8 @@ import chalk from "chalk";
 
 import { BabyAGIConfig, Task } from "@types";
 import { OpenAIEmbeddings } from "langchain/embeddings";
-import { HNSWLib } from "../../../langchain/hnswlib.js";
+import { HNSWLib } from "@langchain/hnswlib";
+import { askUntilYes } from "@utils";
 
 import {
   Architect,
@@ -38,7 +39,7 @@ export const run = async ({
   })();
 
   // Task list
-  let taskList: Task[] = await Architect(objective, [], llm);
+  let taskList: Task[] = await askUntilYes(Architect, objective, [], "", llm);
 
   console.log(chalk.bold(chalk.magenta("\n*****OBJECTIVE*****\n")));
   console.log(objective);
@@ -67,7 +68,7 @@ export const run = async ({
         task.taskName,
         vectorStore,
         llm,
-        "tools/tools.json"
+        "../tools/tools.json"
       );
 
       const thisTaskId = task.taskId;

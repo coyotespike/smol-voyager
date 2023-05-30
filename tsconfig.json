@@ -10,7 +10,8 @@
     "baseUrl": ".",
     "paths": {
       "@types": ["src/types"],
-      "@utils": ["src/utils/index"],
+      "@utils": ["src/cli/utils/index"],
+      "@langchain/*": ["src/langchain/*"],
       "@agents": ["src/agents/index"]
     },
     "strict": true

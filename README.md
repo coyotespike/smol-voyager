@@ -14,6 +14,12 @@ Your agent will therefore adapt to your work habits, building tools and course-c
 
 Run `yarn`, then `yarn make-global`. Then you can run `yarn link smol-voyager` from the root of any project to enable the agent for that project.
 
+You should also put your OpenAI key in your .bashrc or .zshrc file, like this:
+
+```
+export OPENAI_API_KEY=yourkeyhere
+```
+
 `smol-voyager run` will initiate the agent.
 
 # Motivation and Inspiration

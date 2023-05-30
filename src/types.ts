@@ -23,3 +23,10 @@ export type Task = {
   taskId: number;
   taskName: string;
 };
+
+export type AgentFunction = (
+  objective: string,
+  taskList: Task[] | [],
+  feedback: string,
+  llm: any
+) => Promise<Task[]>;
