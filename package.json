@@ -1,0 +1,23 @@
+{
+  "name": "smol-voyager",
+  "version": "0.0.1",
+  "description": "A coding assistant",
+  "author": "coyotespike",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "yarn build && node -r module-alias/register dist/index.js",
+    "build": "tsc",
+    "serve": "node -r module-alias/register dist/index.js"
+  },
+  "_moduleAliases": {
+    "@utils": "dist/utils",
+    "@agents": "dist/agents"
+  },
+  "dependencies": {
+    "module-alias": "^2.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.5"
+  }
+}

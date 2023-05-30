@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "dist",
+    "rootDir": "src",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@types": ["src/types"],
+      "@utils": ["src/utils/index"],
+      "@agents": ["src/agents/index"]
+    },
+    "strict": true
+  },
+  "include": ["src"]
+}
