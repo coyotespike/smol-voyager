@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import fs from "node:fs/promises";
 import { Command } from "commander";
 import { spinnerError, stopSpinner } from "./cli/spinner.js";

@@ -1,18 +1,18 @@
 {
   "name": "smol-voyager",
   "version": "0.0.1",
-  "description": "A coding assistant",
+  "description": "CLI-Based Iterative TDD Coding Assistant",
   "author": "coyotespike",
   "license": "MIT",
   "private": false,
   "scripts": {
     "build": "esbuild src/index.ts --bundle --external:hnswlib-node --outdir=dist --platform=node --target=es2019",
     "start": "yarn build && node -r module-alias/register dist/index.js",
-    "make-global": "yarn build && yarn global add file: .",
+    "make-global": "yarn build && yarn link",
     "clean": "rm -rf dist"
   },
   "bin": {
-    "voyager": "./dist/index.js"
+    "smol-voyager": "./dist/index.js"
   },
   "_moduleAliases": {
     "@utils": "dist/utils",
