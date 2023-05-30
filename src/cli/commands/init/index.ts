@@ -68,6 +68,8 @@ export const init = async (config: BabyAGIConfig = makeConfigTemplate()) => {
   );
 
   console.log(
-    chalk.green("BabyAGI initialized. Run `babyagi start` to start the agent.")
+    chalk.green(
+      "smol-voyager initialized. Run `smol-voyager start` to start the agent."
+    )
   );
 };

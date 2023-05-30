@@ -1,4 +1,6 @@
-# smol-Voyager (Voyager Developer)
+# smol-voyager
+
+## Reflexion Voyager BabyAGI
 
 This project aims to develop a usable coding agent, which will work iteratively in collaboration with a developer.
 

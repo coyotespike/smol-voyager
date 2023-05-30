@@ -1,0 +1,18 @@
+[
+  {
+    "name": "createFile",
+    "description": "Creates a file with the given name, at the given location",
+    "arguments": [
+      {
+        "required": true,
+        "name": "fileName",
+        "value": ""
+      },
+      {
+        "required": true,
+        "name": "fileLocation",
+        "value": ""
+      }
+    ]
+  }
+]
