@@ -1,3 +1,4 @@
 import askUntilYes from "./AskUntilYes";
+import * as LLMUtil from "./LLMUtil";
 
-export { askUntilYes };
+export { askUntilYes, LLMUtil };

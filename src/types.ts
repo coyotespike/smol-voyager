@@ -24,9 +24,18 @@ export type Task = {
   taskName: string;
 };
 
-export type AgentFunction = (
+export type SubTask = {
+  taskId: number;
+  taskDescription: string;
+  completed: boolean;
+  toolsToUse: string[];
+};
+
+export type TaskList = Task[] | [];
+
+export type AgentFunction<T = Task, R = Task> = (
   objective: string,
-  taskList: Task[] | [],
+  taskList: TaskList,
   feedback: string,
   llm: any
-) => Promise<Task[]>;
+) => Promise<R[]>;

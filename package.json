@@ -7,6 +7,7 @@
   "private": false,
   "scripts": {
     "build": "esbuild src/index.ts --bundle --external:hnswlib-node --outdir=dist --platform=node --target=es2019",
+    "postbuild": "cp -r src/tools dist/",
     "start": "yarn build && node -r module-alias/register dist/index.js",
     "make-global": "yarn build && yarn unlink && yarn link && yarn link 'smol-voyager'",
     "clean": "rm -rf dist"

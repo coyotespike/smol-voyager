@@ -2,13 +2,14 @@ import path from "node:path";
 import fs from "node:fs";
 import chalk from "chalk";
 
-import { BabyAGIConfig, Task } from "@types";
+import { BabyAGIConfig, Task, SubTask } from "@types";
 import { OpenAIEmbeddings } from "langchain/embeddings";
 import { HNSWLib } from "@langchain/hnswlib";
 import { askUntilYes } from "@utils";
 
 import {
   Architect,
+  TechLead,
   executionAgent,
   prioritizationAgent,
   taskCreationAgent,
@@ -38,8 +39,24 @@ export const run = async ({
     return store;
   })();
 
-  // Task list
-  let taskList: Task[] = await askUntilYes(Architect, objective, [], "", llm);
+  let taskList: Task[] = await askUntilYes<Task, Task>(
+    Architect,
+    objective,
+    [],
+    "",
+    llm
+  );
+  console.log(
+    `${chalk.bold(chalk.magenta("Architect completed high-level planning"))}`
+  );
+
+  let subtaskList: SubTask[] = await askUntilYes<Task, SubTask>(
+    TechLead,
+    objective,
+    taskList,
+    "",
+    llm
+  );
 
   console.log(chalk.bold(chalk.magenta("\n*****OBJECTIVE*****\n")));
   console.log(objective);

@@ -1,7 +1,7 @@
 [
   {
     "name": "createFile",
-    "description": "Creates a file with the given name, at the given location",
+    "description": "Creates a file (not a directory) with the given name, at the given location. Does not write in the file.",
     "arguments": [
       {
         "required": true,

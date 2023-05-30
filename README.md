@@ -1,6 +1,8 @@
 # smol-voyager
 
-## Reflexion Voyager BabyAGI
+aka
+
+### ✨ BabyAGI Voyager with Reflexion ✨
 
 This project aims to develop a usable coding agent, which will work iteratively in collaboration with a developer.
 
@@ -52,6 +54,6 @@ This project started as a fork of BabyAGI-ts, a port of [@yoheinakajima](https:/
 
 # Workflow
 - Architect makes high-level plan
-- Manager-DX plans steps with tools, creating tools if necessary
-- Executor carries out plan, checking with human at each step
+- Tech Lead plans steps with tools, creating tools if necessary
+- Developer carries out plan, checking with human at each step
 

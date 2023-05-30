@@ -1,11 +1,11 @@
 import inquirer from "inquirer";
 
-import { AgentFunction, Task } from "@types";
+import { AgentFunction, TaskList } from "@types";
 
-export default async function askUntilYes(
-  agentFunction: AgentFunction,
+export default async function askUntilYes<T = Task, R = Task>(
+  agentFunction: AgentFunction<T, R>,
   objective: string,
-  initialTaskList: Task[] | [],
+  initialTaskList: TaskList,
   initialFeedback: string,
   llm: any
 ) {
@@ -45,10 +45,5 @@ export default async function askUntilYes(
     }
   }
 
-  console.log("Loop ended.");
   return taskList;
 }
-export type Task = {
-  taskId: number;
-  taskName: string;
-};
