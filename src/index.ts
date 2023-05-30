@@ -24,3 +24,31 @@ program
       init();
     }
   });
+
+program
+  .command("run")
+  .description("Run a BabyAGI Agent")
+  .action(async () => {
+    let config: BabyAGIConfig;
+    try {
+      config = JSON.parse(await fs.readFile("./babyagi.config.json", "utf8"));
+    } catch (e) {
+      await init();
+      config = JSON.parse(await fs.readFile("./babyagi.config.json", "utf8"));
+    }
+
+    run(config);
+  });
+
+/**
+ * Listen for unhandled promise rejections
+ */
+process.on("unhandledRejection", function (err: Error) {
+  console.error(err.stack);
+
+  spinnerError(); // show an error spinner
+  stopSpinner(); // stop the spinner
+  program.error("", { exitCode: 1 }); // exit with error code 1
+});
+
+program.parse();
