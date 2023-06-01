@@ -11,12 +11,11 @@ export default async function Architect(
   const taskListString = taskList
     .map((task) => `Task ${task.taskId}: ${task.taskName}`)
     .join(", ");
-  console.log(taskListString);
 
   const prompt = `
     You are an expert software architect and senior developer. Your job is to create detailed tasks to achieve the following objective: ${objective}.
 
-    You should create tasks that are as detailed and minimal as possible, with a TDD approach.
+    You should create tasks that are as detailed and minimal as possible, adhering to a TDD approach.
 
     If you are given a task list and feedback below, you should incorporate the feedback and update the task list accordingly.
 

@@ -24,31 +24,36 @@ export default async function TechLead(
     .join("\n");
 
   const prompt = `
-    You are a senior developer and tech lead. Your job is to lead your team to accomplish the following task:
+    You are a senior developer and tech lead. Your job is to guide your team to complete a series of tasks. Here's a breakdown of the tasks:
 
     ${taskListString}
 
-    You also have the following tools at your disposal:
+    Your team has been provided with certain pre-built functions or tools to accomplish these tasks:
 
     ${toolListString}
 
-    Break this task down step by step so your team knows exactly what to do.
+    Your job is to plan how to use these existing tools, and when necessary, create new functions or tools, to accomplish each task.
 
-    For each step, decide which tools to use and in what order. Use only the tools provided in that tool list.
+    Break down each task step by step, clearly identifying:
+
+    What the task is and its description.
+    Whether the task can be completed with the current tools.
+    If not, what new functions or tools need to be created.
+    Which tools are to be used for each task.
+    For each step, decide which tools to use and in what order. Use only the tools provided in that tool list or the ones you've created.
 
     Your team will report to you when they have completed a task. Ensure you check their work by including tasks that verify the correctness of their work.
 
-    Respond with your instructions to your team in the following format:
-    {reasoning: "Let's think step by step: ", subTasks: [{taskId: 1, taskDescription: "", complete: False, toolsToUse: []}]}
+    Respond with your instructions to your team following this example format:
 
-    Remember, toolsToUse must be a subset of the tools provided.
+    [{taskId: 1, taskDescription: "Create a testing file", complete: false, canComplete: true, toolsToUse: ["createFile"]}]
 
-    If the task cannot be accomplished with these tools, then return only steps to create the tools needed. Respond in the requested format.
+    Remember, toolsToUse must be a subset of the tools provided or the tools you've decided to create.
 
-    If you do not have sufficient tools to create the tools needed, then you are unable to complete the task.
+    If the task cannot be accomplished with these tools, then include steps to create the tools needed. For example, if you needed to install dependencies, but have no function to perform this:
 
-    If you are unable to complete the task, respond with "I am unable to complete the task, for the following reasons: " and list the reasons.
-
+    [{taskId: 1, taskDescription: "Write a function to install dependencies", complete: false, canComplete: true, toolsToUse: ["createFile"]}, {taskId: 2, taskDescription: "Use the function to install the dependencies", complete: false, canComplete: false, toolsToUse: ["installDependencies"]}]
+    The second task has canComplete: false, because you cannot complete the task until you have completed the first task and created the "installDependencies" function.
     `;
 
   const response = await LLMUtil.createCompletion({

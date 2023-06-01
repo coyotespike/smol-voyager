@@ -51,6 +51,7 @@ This project started as a fork of BabyAGI-ts, a port of [@yoheinakajima](https:/
 - The executor agent may need to insert identifying remarks to edit
 - eventually, [Voyager](https://github.com/MineDojo/Voyager/tree/main/voyager) approach, build up skills list
 - Include [Reflexion](https://github.com/noahshinn024/reflexion)
+- Maybe switch to Chroma for embeddings
 
 # Workflow
 - Architect makes high-level plan
