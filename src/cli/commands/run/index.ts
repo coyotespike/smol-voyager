@@ -7,13 +7,7 @@ import { OpenAIEmbeddings } from "langchain/embeddings";
 import { HNSWLib } from "@langchain/hnswlib";
 import { askUntilYes } from "@utils";
 
-import {
-  Architect,
-  TechLead,
-  Developer,
-  prioritizationAgent,
-  taskCreationAgent,
-} from "@agents";
+import { Architect, TechLead, Developer } from "@agents";
 
 // TODO initialTask is no longer used
 export const run = async ({

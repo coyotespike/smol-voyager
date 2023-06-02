@@ -28,7 +28,7 @@ export default async function TechLead(
 
     ${taskListString}
 
-    Your team has been provided with certain pre-built functions or tools to accomplish these tasks:
+    Your team has been provided with NodeTS functions (aka tools) to accomplish these tasks:
 
     ${toolListString}
 
@@ -71,5 +71,6 @@ export default async function TechLead(
     }
   } catch (error) {
     console.log(error, response);
+    return [];
   }
 }
