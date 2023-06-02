@@ -26,8 +26,6 @@ export default async function SoloDeveloper(
     vectorStore,
   });
 
-  console.log("context", context);
-
   const identityAndContextPrompt = `
     You are a senior developer. Your objective is to ${objective}.
 

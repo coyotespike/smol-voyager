@@ -15,7 +15,6 @@ export const soloDev = async ({
   llm,
   root,
 }: BabyAGIConfig) => {
-  console.log(root);
   const vectorStorePath = path.join(root, "data");
   const vectorStoreExists = fs.existsSync(
     path.join(vectorStorePath, "args.json")

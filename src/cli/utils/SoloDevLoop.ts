@@ -17,9 +17,10 @@ export default async function SoloDevLoop(
     let previousAttempt = [];
     for (let action of actions) {
       let tool = action.toolToUse;
-      let result = await runTool(tool.name, tool.arguments);
-      previousAttempt.push({ action, result });
+      let { success, result } = await runTool(tool.name, tool.arguments);
+      previousAttempt.push({ action, result, success });
     }
+    console.log("previousAttempt", previousAttempt);
     const newResult = await SoloDeveloper(
       objective,
       previousAttempt,

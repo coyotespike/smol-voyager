@@ -1,13 +1,13 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import HierarchicalNSW from 'hnswlib-node';
+import fs from "node:fs/promises";
+import path from "node:path";
+import HierarchicalNSW from "hnswlib-node";
 import type {
   HierarchicalNSW as HierarchicalNSWT,
   SpaceName,
-} from 'hnswlib-node';
-import { Document, InMemoryDocstore } from 'langchain/docstore';
-import { Embeddings } from 'langchain/embeddings';
-import { SaveableVectorStore } from 'langchain/vectorstores';
+} from "hnswlib-node";
+import { Document, InMemoryDocstore } from "langchain/docstore";
+import { Embeddings } from "langchain/embeddings";
+import { SaveableVectorStore } from "langchain/vectorstores";
 
 export interface HNSWLibBase {
   space: SpaceName;
@@ -38,17 +38,17 @@ export class HNSWLib extends SaveableVectorStore {
     const texts = documents.map(({ pageContent }) => pageContent);
     return this.addVectors(
       await this.embeddings.embedDocuments(texts),
-      documents,
+      documents
     );
   }
 
   private static async getHierarchicalNSW(args: HNSWLibBase) {
     const { HierarchicalNSW } = await HNSWLib.imports();
     if (!args.space) {
-      throw new Error('hnswlib-node requires a space argument');
+      throw new Error("hnswlib-node requires a space argument");
     }
     if (args.numDimensions === undefined) {
-      throw new Error('hnswlib-node requires a numDimensions argument');
+      throw new Error("hnswlib-node requires a numDimensions argument");
     }
     return new HierarchicalNSW(args.space, args.numDimensions);
   }
@@ -68,7 +68,7 @@ export class HNSWLib extends SaveableVectorStore {
   public get index(): HierarchicalNSWT {
     if (!this._index) {
       throw new Error(
-        'Vector store not initialised yet. Try calling `addTexts` first.',
+        "Vector store not initialised yet. Try calling `addTexts` first."
       );
     }
     return this._index;
@@ -89,7 +89,7 @@ export class HNSWLib extends SaveableVectorStore {
     }
     if (vectors[0].length !== this.args.numDimensions) {
       throw new Error(
-        `Vectors must have the same length as the number of dimensions (${this.args.numDimensions})`,
+        `Vectors must have the same length as the number of dimensions (${this.args.numDimensions})`
       );
     }
     const capacity = this.index.getMaxElements();
@@ -107,14 +107,14 @@ export class HNSWLib extends SaveableVectorStore {
   async similaritySearchVectorWithScore(query: number[], k: number) {
     if (query.length !== this.args.numDimensions) {
       throw new Error(
-        `Query vector must have the same length as the number of dimensions (${this.args.numDimensions})`,
+        `Query vector must have the same length as the number of dimensions (${this.args.numDimensions})`
       );
     }
     if (k > this.index.getCurrentCount()) {
       const total = this.index.getCurrentCount();
-      console.warn(
-        `k (${k}) is greater than the number of elements in the index (${total}), setting k to ${total}`,
-      );
+      // console.warn(
+      //   `k (${k}) is greater than the number of elements in the index (${total}), setting k to ${total}`,
+      // );
       // eslint-disable-next-line no-param-reassign
       k = total;
     }
@@ -124,35 +124,35 @@ export class HNSWLib extends SaveableVectorStore {
         [
           this.docstore.search(String(docIndex)),
           result.distances[resultIndex],
-        ] as [Document, number],
+        ] as [Document, number]
     );
   }
 
   async save(directory: string) {
     await fs.mkdir(directory, { recursive: true });
     await Promise.all([
-      this.index.writeIndex(path.join(directory, 'hnswlib.index')),
+      this.index.writeIndex(path.join(directory, "hnswlib.index")),
       await fs.writeFile(
-        path.join(directory, 'args.json'),
-        JSON.stringify(this.args),
+        path.join(directory, "args.json"),
+        JSON.stringify(this.args)
       ),
       await fs.writeFile(
-        path.join(directory, 'docstore.json'),
-        JSON.stringify(Array.from(this.docstore._docs.entries())),
+        path.join(directory, "docstore.json"),
+        JSON.stringify(Array.from(this.docstore._docs.entries()))
       ),
     ]);
   }
 
   static async load(directory: string, embeddings: Embeddings) {
     const args = JSON.parse(
-      await fs.readFile(path.join(directory, 'args.json'), 'utf8'),
+      await fs.readFile(path.join(directory, "args.json"), "utf8")
     );
     const index = await HNSWLib.getHierarchicalNSW(args);
     const [docstoreFiles] = await Promise.all([
       fs
-        .readFile(path.join(directory, 'docstore.json'), 'utf8')
+        .readFile(path.join(directory, "docstore.json"), "utf8")
         .then(JSON.parse),
-      index.readIndex(path.join(directory, 'hnswlib.index')),
+      index.readIndex(path.join(directory, "hnswlib.index")),
     ]);
     args.docstore = new InMemoryDocstore(new Map(docstoreFiles));
 
@@ -167,7 +167,7 @@ export class HNSWLib extends SaveableVectorStore {
     embeddings: Embeddings,
     dbConfig?: {
       docstore?: InMemoryDocstore;
-    },
+    }
   ): Promise<HNSWLib> {
     const docs: Document[] = [];
     for (let i = 0; i < texts.length; i += 1) {
@@ -185,11 +185,11 @@ export class HNSWLib extends SaveableVectorStore {
     embeddings: Embeddings,
     dbConfig?: {
       docstore?: InMemoryDocstore;
-    },
+    }
   ): Promise<HNSWLib> {
     const args: HNSWLibArgs = {
       docstore: dbConfig?.docstore,
-      space: 'cosine',
+      space: "cosine",
     };
     const instance = new this(embeddings, args);
     await instance.addDocuments(docs);
