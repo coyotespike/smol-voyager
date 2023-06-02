@@ -7,7 +7,6 @@ import { OpenAIEmbeddings } from "langchain/embeddings";
 import { HNSWLib } from "@langchain/hnswlib";
 import { loopArchitect, loopTechLead } from "@utils";
 
-import { TechLead, Developer } from "@agents";
 import LoopUntilComplete from "src/cli/utils/LoopUntilComplete";
 
 // TODO initialTask is no longer used
