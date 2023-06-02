@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 
-import { AgentFunction, TaskList } from "@types";
+import { AgentFunction, TaskList, Task } from "@types";
 
 export default async function askUntilYes<T = Task, R = Task>(
   agentFunction: AgentFunction<T, R>,

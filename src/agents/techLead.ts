@@ -53,6 +53,7 @@ export default async function TechLead(
     If the task cannot be accomplished with these tools, then include steps to create the tools needed. For example, if you needed to install dependencies, but have no function to perform this:
 
     [{taskId: 1, taskDescription: "Write a function to install dependencies", complete: false, canComplete: true, toolsToUse: ["createFile"]}, {taskId: 2, taskDescription: "Use the function to install the dependencies", complete: false, canComplete: false, toolsToUse: ["installDependencies"]}]
+
     The second task has canComplete: false, because you cannot complete the task until you have completed the first task and created the "installDependencies" function.
     `;
 
@@ -61,24 +62,14 @@ export default async function TechLead(
     prompt,
   });
 
-  console.log(response);
-
-  let newTasks;
-
   try {
     const parsedResponse = JSON.parse(response);
-    if (
-      parsedResponse &&
-      typeof parsedResponse === "object" &&
-      Array.isArray(parsedResponse.subTasks)
-    ) {
-      newTasks = parsedResponse;
+    if (Array.isArray(parsedResponse)) {
+      return parsedResponse;
     } else {
       throw new Error();
     }
   } catch (error) {
-    newTasks = response.includes("\n") ? response.split("\n") : [response];
+    console.log(error, response);
   }
-
-  return newTasks;
 }

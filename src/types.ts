@@ -28,6 +28,7 @@ export type SubTask = {
   taskId: number;
   taskDescription: string;
   completed: boolean;
+  canComplete: boolean;
   toolsToUse: string[];
 };
 
