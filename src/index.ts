@@ -5,6 +5,7 @@ import { Command } from "commander";
 import { spinnerError, stopSpinner } from "./cli/spinner.js";
 import { init } from "./cli/commands/init/index.js";
 import { run } from "./cli/commands/run/index.js";
+import { soloDev } from "./cli/commands/do/index.js";
 import { BabyAGIConfig } from "@types";
 
 const program = new Command();
@@ -40,6 +41,21 @@ program
     }
 
     run(config);
+  });
+
+program
+  .command("do")
+  .description("developer-only mode")
+  .action(async (command) => {
+    let config: BabyAGIConfig;
+    try {
+      config = JSON.parse(await fs.readFile("./babyagi.config.json", "utf8"));
+    } catch (e) {
+      await init();
+      config = JSON.parse(await fs.readFile("./babyagi.config.json", "utf8"));
+    }
+
+    soloDev(config);
   });
 
 /**

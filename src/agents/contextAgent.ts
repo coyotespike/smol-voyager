@@ -15,6 +15,8 @@ export default async function contextAgent({
     topResultsNum
   );
 
+  console.log(results);
+
   const sorted = results.sort(([, a]: any[], [, b]: any[]) => b - a);
-  return sorted.map(([doc]: any[]) => doc.metadata.task);
+  return sorted.map(([doc]: any[]) => doc.metadata);
 }
