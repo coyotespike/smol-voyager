@@ -1,10 +1,10 @@
-import { Task } from "@types";
+import { SubTask } from "@types";
 import runTool from "@tools";
 import { Developer } from "@agents";
 
-export default async function LoopUntilComplete<T = Task, R = Task>(
+export default async function LoopUntilComplete(
   objective: string,
-  task: string,
+  task: SubTask,
   vectorStore: any,
   llm: any
 ) {

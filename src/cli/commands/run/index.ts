@@ -46,45 +46,38 @@ export const run = async ({
   console.log(objective);
   console.log(`${chalk.bold(chalk.magenta("\nInitial Task:"))} ${initialTask}`);
 
-  while (true) {
-    if (taskList.length > 0) {
-      // Print the task list
-      console.log(chalk.bold(chalk.magenta("\n*****TASK LIST*****\n")));
-      for (const t of taskList) {
-        console.log(`${t.taskId}: ${t.taskName}`);
-      }
-
-      // Step 1: Pull the first task
-      const task = taskList.shift();
-      if (!task) {
-        throw new Error("Task is undefined");
-      }
-
-      console.log(chalk.bold(chalk.greenBright("\n*****NEXT TASK*****\n")));
-      console.log(`${task.taskId}: ${task.taskName}`);
-
-      // Send to execution function to complete the task based on the context
-      const result = await Developer(
-        objective,
-        task.taskName,
-        vectorStore,
-        llm
-      );
-
-      console.log(chalk.bold(chalk.magenta("\n*****TASK RESULT*****\n")));
-      console.log(result);
-
-      // Step 2: Enrich result and store in Vector Store
-      const enriched_result = { data: result };
-      const result_id = `result_${task.taskId}`;
-      await vectorStore.addDocuments([
-        {
-          pageContent: enriched_result.data,
-          metadata: { result_id, task: task.taskName, result },
-        },
-      ]);
-      await vectorStore.save(vectorStorePath);
+  while (subtaskList.length) {
+    // Print the task list
+    console.log(chalk.bold(chalk.magenta("\n*****TASK LIST*****\n")));
+    for (const t of subtaskList) {
+      console.log(`${t.taskId}: ${t.taskDescription}`);
     }
+
+    // Step 1: Pull the first task
+    const task = subtaskList.shift();
+    if (!task) {
+      throw new Error("Task is undefined");
+    }
+
+    console.log(chalk.bold(chalk.greenBright("\n*****NEXT TASK*****\n")));
+    console.log(`${task.taskId}: ${task.taskDescription}`);
+
+    // Send to execution function to complete the task based on the context
+    const result = await LoopUntilComplete(objective, task, vectorStore, llm);
+
+    console.log(chalk.bold(chalk.magenta("\n*****TASK RESULT*****\n")));
+    console.log(result);
+
+    // Step 2: Enrich result and store in Vector Store
+    const enriched_result = { data: result };
+    const result_id = `result_${task.taskId}`;
+    await vectorStore.addDocuments([
+      {
+        pageContent: enriched_result.data,
+        metadata: { result_id, task: task.taskDescription, result },
+      },
+    ]);
+    await vectorStore.save(vectorStorePath);
 
     await new Promise((resolve) => setTimeout(resolve, 1000)); // Sleep before checking the task list again
   }
