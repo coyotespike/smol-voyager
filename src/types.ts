@@ -40,3 +40,25 @@ export type AgentFunction<T = Task, R = Task> = (
   feedback: string,
   llm: any
 ) => Promise<R[]>;
+
+type Argument = {
+  required: boolean;
+  name: string;
+  value: string;
+};
+export type Tool = {
+  name: string;
+  description: string;
+  arguments: Argument[];
+};
+
+export type Action = {
+  toolToUse: Tool;
+  task: string;
+  thought: string;
+};
+
+export type PreviousAttempt = {
+  action: Action;
+  result: string;
+};
