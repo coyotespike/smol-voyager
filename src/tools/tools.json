@@ -14,5 +14,42 @@
         "value": ""
       }
     ]
+  },
+  {
+    "name": "writeFile",
+    "description": "Writes the specified content to a file with the given name, at the given location.",
+    "arguments": [
+      {
+        "required": true,
+        "name": "fileName",
+        "value": ""
+      },
+      {
+        "required": true,
+        "name": "fileLocation",
+        "value": ""
+      },
+      {
+        "required": true,
+        "name": "content",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "name": "readFile",
+    "description": "Reads the content of a file with the given name, at the given location.",
+    "arguments": [
+      {
+        "required": true,
+        "name": "fileName",
+        "value": ""
+      },
+      {
+        "required": true,
+        "name": "fileLocation",
+        "value": ""
+      }
+    ]
   }
 ]
