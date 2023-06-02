@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-import { TaskList, SubTask } from "@types";
+import { TaskList, SubTaskList, SubTask } from "@types";
 import { LLMUtil } from "@utils";
 
 // This path actually refers to the relative path for the compiled JS files inside dist/
@@ -16,6 +16,7 @@ const toolListString = tools.map((tool: any) => tool.name).join(", ");
 export default async function TechLead(
   objective: string,
   taskList: TaskList,
+  subTaskList: SubTaskList | null,
   feedback: string,
   llm: any
 ): Promise<SubTask[]> {
@@ -31,6 +32,7 @@ export default async function TechLead(
     Your team has been provided with NodeTS functions (aka tools) to accomplish these tasks:
 
     ${toolListString}
+
 
     Your job is to plan how to use these existing tools, and when necessary, create new functions or tools, to accomplish each task.
 
@@ -55,6 +57,16 @@ export default async function TechLead(
     [{taskId: 1, taskDescription: "Write a function to install dependencies", complete: false, canComplete: true, toolsToUse: ["createFile"]}, {taskId: 2, taskDescription: "Use the function to install the dependencies", complete: false, canComplete: false, toolsToUse: ["installDependencies"]}]
 
     The second task has canComplete: false, because you cannot complete the task until you have completed the first task and created the "installDependencies" function.
+
+
+    Here are the tasks you previously produced:
+
+    ${JSON.stringify(subTaskList)}
+
+    You have received the following feedback on this task list: ${feedback}
+
+    Your objective is to improve the task list based on this feedback. Respond with your new task list in the same format as above.
+
     `;
 
   const response = await LLMUtil.createCompletion({

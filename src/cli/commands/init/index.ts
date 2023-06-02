@@ -53,7 +53,7 @@ export const init = async (config: BabyAGIConfig = makeConfigTemplate()) => {
       message: chalk.yellow(
         `Select which LLM you would like to use (select GPT-3.5 Turbo if you aren't sure):`
       ),
-      default: 0,
+      default: 1,
       choices: [
         {
           name: "GPT-3.5 Turbo",

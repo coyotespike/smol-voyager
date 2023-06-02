@@ -4,11 +4,11 @@ import path from "path";
 import contextAgent from "./contextAgent";
 
 import { LLMUtil } from "@utils";
-import { Action, PreviousAttempt } from "@types";
+import { Action, PreviousAttempt, SubTask } from "@types";
 
 export default async function Developer(
   objective: string,
-  task: string,
+  task: SubTask,
   previousAttempt: PreviousAttempt[] | null,
   vectorStore: any,
   llm: any
