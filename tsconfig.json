@@ -11,6 +11,7 @@
     "paths": {
       "@types": ["src/types"],
       "@utils": ["src/cli/utils/index"],
+      "@tools": ["src/tools/index"],
       "@langchain/*": ["src/langchain/*"],
       "@agents": ["src/agents/index"]
     },
