@@ -5,9 +5,10 @@ import chalk from "chalk";
 import { BabyAGIConfig, Task, SubTask } from "@types";
 import { OpenAIEmbeddings } from "langchain/embeddings";
 import { HNSWLib } from "@langchain/hnswlib";
-import { askUntilYes } from "@utils";
+import { loopArchitect, loopTechLead } from "@utils";
 
-import { Architect, TechLead, Developer } from "@agents";
+import { TechLead, Developer } from "@agents";
+import LoopUntilComplete from "src/cli/utils/LoopUntilComplete";
 
 // TODO initialTask is no longer used
 export const run = async ({
@@ -34,24 +35,12 @@ export const run = async ({
     return store;
   })();
 
-  let taskList: Task[] = await askUntilYes<Task, Task>(
-    Architect,
-    objective,
-    [],
-    "",
-    llm
-  );
+  let taskList: Task[] = await loopArchitect(objective, [], "", llm);
   console.log(
     `${chalk.bold(chalk.magenta("Architect completed high-level planning"))}`
   );
 
-  let subtaskList: SubTask[] = await askUntilYes<Task, SubTask>(
-    TechLead,
-    objective,
-    taskList,
-    "",
-    llm
-  );
+  let subtaskList: SubTask[] = await loopTechLead(objective, taskList, llm);
 
   console.log(chalk.bold(chalk.magenta("\n*****OBJECTIVE*****\n")));
   console.log(objective);
