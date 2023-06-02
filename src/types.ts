@@ -33,12 +33,14 @@ export type SubTask = {
 };
 
 export type TaskList = Task[] | [];
+export type SubTaskList = SubTask[] | [];
 
 export type AgentFunction<T = Task, R = Task> = (
   objective: string,
   taskList: TaskList,
   feedback: string,
-  llm: any
+  llm: any,
+  subTaskList?: SubTaskList | null
 ) => Promise<R[]>;
 
 type Argument = {
