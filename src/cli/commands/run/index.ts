@@ -10,11 +10,12 @@ import { askUntilYes } from "@utils";
 import {
   Architect,
   TechLead,
-  executionAgent,
+  Developer,
   prioritizationAgent,
   taskCreationAgent,
 } from "@agents";
 
+// TODO initialTask is no longer used
 export const run = async ({
   objective,
   initialTask,
@@ -80,15 +81,13 @@ export const run = async ({
       console.log(`${task.taskId}: ${task.taskName}`);
 
       // Send to execution function to complete the task based on the context
-      const result = await executionAgent(
+      const result = await Developer(
         objective,
         task.taskName,
         vectorStore,
-        llm,
-        "../tools/tools.json"
+        llm
       );
 
-      const thisTaskId = task.taskId;
       console.log(chalk.bold(chalk.magenta("\n*****TASK RESULT*****\n")));
       console.log(result);
 
@@ -102,25 +101,6 @@ export const run = async ({
         },
       ]);
       await vectorStore.save(vectorStorePath);
-
-      // Step 3: Create new tasks and reprioritize task list
-      const newTasks = await taskCreationAgent(
-        objective,
-        enriched_result,
-        task.taskName,
-        taskList.map((t) => t.taskName),
-        llm
-      );
-
-      for (const newTask of newTasks) {
-        taskList.push(newTask);
-      }
-      taskList = await prioritizationAgent(
-        thisTaskId,
-        taskList,
-        objective,
-        llm
-      );
     }
 
     await new Promise((resolve) => setTimeout(resolve, 1000)); // Sleep before checking the task list again

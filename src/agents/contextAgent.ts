@@ -1,4 +1,4 @@
-import * as LLMUtil from '../cli/utils/LLMUtil.js';
+import { LLMUtil } from "@utils";
 
 export default async function contextAgent({
   query,
@@ -12,7 +12,7 @@ export default async function contextAgent({
   const embedding = await LLMUtil.createEmbedding(query);
   const results = await vectorStore.similaritySearchVectorWithScore(
     embedding,
-    topResultsNum,
+    topResultsNum
   );
 
   const sorted = results.sort(([, a]: any[], [, b]: any[]) => b - a);
