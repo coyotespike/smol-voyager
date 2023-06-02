@@ -34,7 +34,11 @@ export default async function SoloDeveloper(
   const reflexionPrompt = `
    To solve this task, you previously attempted to ${previousAttempt}.
 
-   What went wrong? What went right? What did you learn? Take this into account when solving this task. Include a key in your response called "reflexion", whose value is a string describing your reflexion.`;
+   What went wrong? What went right? What did you learn? Take this into account when solving this task.
+
+   Before "taskComplete", include a key in your response called "reflexion", whose value is a string describing your reflexion.
+
+   Remember, you can also debug tool files by reading them and editing them, or create new tools.`;
 
   const toolsPrompt = `
     You have the following tools (node TypeScript functions to call) at your disposal: ${tools}.

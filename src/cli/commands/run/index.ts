@@ -72,7 +72,7 @@ export const run = async ({
     const result_id = `result_${task.taskId}`;
     await vectorStore.addDocuments([
       {
-        pageContent: enriched_result.data,
+        pageContent: JSON.stringify(enriched_result),
         metadata: { result_id, task: task.taskDescription, result },
       },
     ]);

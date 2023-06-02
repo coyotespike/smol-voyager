@@ -62,5 +62,5 @@ export type Action = {
 
 export type PreviousAttempt = {
   action: Action;
-  result: string;
+  result: any;
 };

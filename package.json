@@ -7,7 +7,7 @@
   "private": false,
   "scripts": {
     "build": "esbuild src/index.ts --bundle --external:hnswlib-node --outdir=dist --platform=node --target=es2019",
-    "postbuild": "cp -r src/tools dist/",
+    "postbuild": "cp src/tools/tools.json dist/tools/",
     "start": "yarn build && node -r module-alias/register dist/index.js",
     "make-global": "yarn build && yarn unlink && yarn link && yarn link 'smol-voyager'",
     "test": "jest",
@@ -21,7 +21,11 @@
     "@agents": "dist/agents"
   },
   "dependencies": {
+    "@pinecone-database/pinecone": "^0.1.6",
+    "@supabase/supabase-js": "^2.24.0",
     "chalk": "^5.2.0",
+    "chromadb": "^1.5.2",
+    "cohere-ai": "^6.2.1",
     "commander": "^10.0.1",
     "dotenv": "^16.0.3",
     "hnswlib-node": "^1.4.2",

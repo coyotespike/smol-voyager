@@ -36,7 +36,9 @@ export default async function Developer(
     Your task: ${task}.`;
 
   const reflexionPrompt = `
-   To solve this task, you previously attempted to ${previousAttempt}.
+   To solve this task, you previously attempted to ${JSON.stringify(
+     previousAttempt
+   )}.
 
    What went wrong? What went right? What did you learn? Take this into account when solving this task.`;
 

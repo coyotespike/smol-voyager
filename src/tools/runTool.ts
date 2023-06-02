@@ -4,8 +4,7 @@ async function runTool(toolName: string, args: any) {
   try {
     // Dynamically import the tool's module
     // Written to work with compiled JS in dist/
-    const modulePath = path.join(__dirname, `./tools/${toolName}.ts`);
-    console.log(`Importing tool module from ${modulePath}`);
+    const modulePath = path.join(__dirname, `./tools/${toolName}.js`);
     const toolModule = await import(modulePath);
 
     // Transform the args array into an object
