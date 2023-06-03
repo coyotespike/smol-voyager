@@ -16,10 +16,6 @@
   "bin": {
     "smol-voyager": "./dist/index.js"
   },
-  "_moduleAliases": {
-    "@utils": "dist/utils",
-    "@agents": "dist/agents"
-  },
   "dependencies": {
     "@pinecone-database/pinecone": "^0.1.6",
     "@supabase/supabase-js": "^2.24.0",

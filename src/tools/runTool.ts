@@ -13,6 +13,8 @@ async function runTool(toolName: string, args: any) {
       return obj;
     }, {});
 
+    console.log(`Running tool "${toolName}" with args:`, argsObject);
+
     // Call the tool's function with the transformed arguments
     const result = await toolModule[toolName](argsObject);
 
@@ -20,7 +22,7 @@ async function runTool(toolName: string, args: any) {
     return { success: true, result };
   } catch (error) {
     console.error(`Failed to run tool "${toolName}": ${error}`);
-    return { success: false, result: error };
+    return { success: false, result: error, error: true };
   }
 }
 

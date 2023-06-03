@@ -1,11 +1,11 @@
-import fs from 'fs';
+import fs from "fs";
 
 export function createFile(args: {
   fileName: string;
   location: string;
 }): Promise<string> {
   return new Promise((resolve, reject) => {
-    fs.writeFile(`${args.location}/${args.fileName}`, '', (err) => {
+    fs.writeFile(`${args.location}/${args.fileName}`, "", (err) => {
       if (err) {
         reject(err);
       } else {

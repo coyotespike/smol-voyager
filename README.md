@@ -42,19 +42,26 @@ This project started as a fork of BabyAGI-ts, a port of [@yoheinakajima](https:/
 
 # Development Roadmap
 
+- [x] Ask for task list approval/editing before sending to executor agent
+- Embed files on creation/update
+- Embed all files in project
 - Allow babyagi to create and edit files
-- Ask for task list approval/editing before sending to executor agent
-- Planning agent should break it down into minimalist changes with TDD
-- Ensure executor agent returns controls to planning agent
-- Executor agent should ask before creating/editing
-- Executor agent should check work and results
-- The executor agent may need to insert identifying remarks to edit
 - eventually, [Voyager](https://github.com/MineDojo/Voyager/tree/main/voyager) approach, build up skills list
-- Include [Reflexion](https://github.com/noahshinn024/reflexion)
+- Add a separate memory store for [Reflexion](https://github.com/noahshinn024/reflexion)
 - Maybe switch to Chroma for embeddings
+- Maybe use qlora to implement Toolformer. Can reflexion/Voyager provide training data?
 
-# Workflow
+# From Scratch Workflow
 - Architect makes high-level plan
 - Tech Lead plans steps with tools, creating tools if necessary
 - Developer carries out plan, checking with human at each step
 
+# Direct Instruction Workflow
+- Issue instructions directly to the developer
+- Developer receives all/multiple relevant files, creates/edits functions
+- After human authorization, Developer creates/edits relevant files
+
+# Common Abilities
+- Receive all relevant files via embeddings
+- Aware of project structure (knows where to create/edit files)
+- Sees test and runtime errors, recommends fixes
