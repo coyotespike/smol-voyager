@@ -1,4 +1,4 @@
-import getCurrentDirectory from "./getCurrentDirectory";
+import { getCurrentDirectory } from "./getCurrentDirectory";
 
 describe("getCurrentDirectory", () => {
   it("should return the current working directory", async () => {
