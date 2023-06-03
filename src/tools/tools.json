@@ -1,7 +1,7 @@
 [
   {
     "name": "createFile",
-    "description": "Creates a file (not a directory) with the given name, at the given location. Does not write in the file.",
+    "description": "Creates a file (not a directory) with the given name, at the given location. Does not write in the file. Do not use relative paths, use absolute paths instead.",
     "arguments": [
       {
         "required": true,
@@ -51,5 +51,10 @@
         "value": ""
       }
     ]
+  },
+  {
+    "name": "getCurrentDirectory",
+    "description": "Returns the current working directory.",
+    "arguments": []
   }
 ]

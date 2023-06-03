@@ -26,22 +26,29 @@ export default async function SoloDeveloper(
     vectorStore,
   });
 
+  const stringifiedContext = JSON.stringify(context);
+  const stringifiedPreviousAttempt = JSON.stringify(previousAttempt);
+
   const identityAndContextPrompt = `
     You are a senior developer. Your objective is to ${objective}.
 
-    Take into account these previously completed tasks, if any: ${context}.`;
+    Take into account these previously completed tasks, if any: ${stringifiedContext}.`;
 
   const reflexionPrompt = `
-   To solve this task, you previously attempted to ${previousAttempt}.
+   To solve this task, you previously attempted to:
 
-   What went wrong? What went right? What did you learn? Take this into account when solving this task.
+   ${stringifiedPreviousAttempt}.
+
+   If unsuccessful, what went wrong? Why? What do the errors provided, if any, indicate? Take this into account when solving this task.
 
    Before "taskComplete", include a key in your response called "reflexion", whose value is a string describing your reflexion.
 
-   Remember, you can also debug tool files by reading them and editing them, or create new tools.`;
+   Remember, you can also debug tool files by reading them and editing them, or create new tools. You may add actions before any other actions to do this.
+
+   Focus on new actions that will debug your actions so far.`;
 
   const toolsPrompt = `
-    You have the following tools (node TypeScript functions to call) at your disposal: ${tools}.
+    You have the following tools (node TypeScript functions to call) at your disposal: ${tools}
 
     Each time you use a tool, you should check that the action you performed was successful. Take another action to check, then report whether the action was successful.
 
@@ -55,7 +62,7 @@ export default async function SoloDeveloper(
 
     If the task is now complete, respond with a JSON object containing your previous actions and the taskComplete flag set to true.
 
-    Remember, toolToUse must be a subset of the tools provided or tools you have just created.
+    Remember, toolToUse must be a subset of the tools provided or tools you have just created. Also remember to order your actions in the order you want them to be executed.
 
     Respond only in valid JSON.`;
 
